@@ -1,0 +1,85 @@
+package Atm.co;
+
+public class InvalidCustomerException extends Exception {
+	public String getMessage()
+	{
+		return "invalid inputs please try again!!!";
+	}
+
+}
+
+import java.util.*;
+public class ATM {
+	private int acc_number=3333;
+	private int pwrd=7777;
+	int ac;
+	int pwd;
+	public void acceptInputs()
+	{
+		Scanner scan=new Scanner (System.in);
+		System.out.println("enter the account number");
+		ac=scan.nextInt();
+		System.out.println("enter the password");
+		pwd=scan.nextInt();
+
+	}
+	public void verify() throws Exception
+	{
+		if(acc_number == acc_number && pwrd==pwd)
+		{
+			System.out.println("collect the cash");
+		}
+		else
+		{
+			InvalidCustomerException ice=new InvalidCustomerException();
+			System.out.println(ice.getMessage());
+			throw ice;
+		}
+	}
+
+}
+
+public class Bank {
+
+	public void initiate()
+	{
+		ATM atm=new ATM();
+		try
+		{
+			atm.acceptInputs();
+			atm.verify();
+		}
+		catch(Exception e)
+		{
+			try
+			{
+				atm.acceptInputs();
+				atm.verify();
+			}
+			catch(Exception f)
+			{
+				try
+				{
+					atm.acceptInputs();
+					atm.verify();
+				}
+				catch(Exception g)
+				{
+					System.out.println("your card blocked!!!");
+					System.exit(0);
+				}
+			}
+		}
+	}
+
+}
+public class Launch {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Bank b=new Bank();
+		b.initiate();
+
+	}
+
+}
